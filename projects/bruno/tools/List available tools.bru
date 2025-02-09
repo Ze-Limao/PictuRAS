@@ -1,0 +1,15 @@
+meta {
+  name: List available tools
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/api/v1/users/{{user_id}}/tools
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

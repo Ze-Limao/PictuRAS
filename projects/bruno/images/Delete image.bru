@@ -1,0 +1,15 @@
+meta {
+  name: Delete image
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{host}}/api/v1/users/{{user_id}}/projects/{{project_id}}/565d645b-f33d-47d9-8408-959a2319ce9a
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

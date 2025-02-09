@@ -1,0 +1,15 @@
+meta {
+  name: Download image
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/api/v1/users/{{user_id}}/projects/{{project_id}}/3b909b97-ac08-47b1-b1b4-61e30f6c7fc9
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

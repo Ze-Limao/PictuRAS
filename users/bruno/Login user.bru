@@ -1,0 +1,25 @@
+meta {
+  name: Login user
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/api/v1/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "mail@ricardosilva.com",
+    "password": "password1234"
+  }
+}
+
+script:post-response {
+  if (res.getStatus() === 200) {
+    let data = res.getBody()
+    let token = bru.setGlobalEnvVar('token', data.token)
+  }
+}

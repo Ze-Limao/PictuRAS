@@ -1,0 +1,31 @@
+meta {
+  name: Create project
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/api/v1/users/{{user_id}}/projects
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "project": {
+      "name": "Projeto Teste 2"
+    }
+  }
+}
+
+script:post-response {
+  if (res.getStatus() === 201) {
+    let data = res.getBody()
+    let token = bru.setGlobalEnvVar('project_id', data.data.id)
+  }
+  
+}

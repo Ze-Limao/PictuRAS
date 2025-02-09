@@ -1,0 +1,260 @@
+services:
+  picturas-api-gateway:
+    build:
+      context: .
+      dockerfile: ./api_gateway/wsl/Dockerfile
+    container_name: picturas-api-gateway
+    ports:
+      - "80:80"
+    volumes:
+      - ./api_gateway/secrets:/secrets
+      - ./api_gateway/wsl/nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+
+  ## Users
+
+  picturas-users-db:
+    image: postgres:15
+    container_name: picturas-users-db
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-users_dev}
+      POSTGRES_HOST: ${DB_HOST:-localhost}
+    ports:
+      - "2345:5432"
+    volumes:
+      - picturas-users-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USERNAME:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  ## Projects
+
+  picturas-projects-db:
+    image: postgres:15
+    container_name: picturas-projects-db
+    environment:
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-projects_dev}
+      POSTGRES_HOST: ${DB_HOST:-localhost}
+    ports:
+      - "2346:5432"
+    volumes:
+      - picturas-projects-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USERNAME:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - rabbitmq-log:/var/log/rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 5s
+      timeout: 30s
+    restart: always
+
+  ## Tools
+
+  picturas-watermark-tool-ms:
+    image: prcsousa/picturas-watermark-tool-ms:latest
+    container_name: picturas-watermark-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-bg-removal-tool-ms:
+    build: ./tools/picturas-bg-removal-tool-ms
+    container_name: picturas-bg-removal-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-border-tool-ms:
+    build: ./tools/picturas-border-tool-ms
+    container_name: picturas-border-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-brightness-tool-ms:
+    build: ./tools/picturas-brightness-tool-ms
+    container_name: picturas-brightness-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-contrast-tool-ms:
+    build: ./tools/picturas-contrast-tool-ms
+    container_name: picturas-contrast-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-rotate-tool-ms:
+    build: ./tools/picturas-rotate-tool-ms
+    container_name: picturas-rotate-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-resize-tool-ms:
+    build: ./tools/picturas-resize-tool-ms
+    container_name: picturas-resize-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-crop-tool-ms:
+    build: ./tools/picturas-crop-tool-ms
+    container_name: picturas-crop-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-object-detection-tool-ms:
+    build: ./tools/picturas-object-detection-tool-ms
+    container_name: picturas-object-detection-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-blur-tool-ms:
+    build: ./tools/picturas-blur-tool-ms
+    container_name: picturas-blur-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-hue-tool-ms:
+    build: ./tools/picturas-hue-tool-ms
+    container_name: picturas-hue-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-invert-tool-ms:
+    build: ./tools/picturas-invert-tool-ms
+    container_name: picturas-invert-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-sharpen-tool-ms:
+    build: ./tools/picturas-sharpen-tool-ms
+    container_name: picturas-sharpen-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+  picturas-saturation-tool-ms:
+    build: ./tools/picturas-saturation-tool-ms
+    container_name: picturas-saturation-tool-ms
+    env_file: .env
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - PICTURAS_LOG_LEVEL=INFO
+    volumes:
+      - ${IMAGES_DIR}:/images
+    depends_on:
+      - rabbitmq
+    restart: always
+
+volumes:
+  picturas-users-pgdata:
+  picturas-projects-pgdata:
+
+  rabbitmq-data:
+  rabbitmq-log:

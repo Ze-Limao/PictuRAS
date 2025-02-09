@@ -1,0 +1,24 @@
+meta {
+  name: Process project
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{host}}/api/v1/users/{{user_id}}/projects/{{project_id}}/process
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "tools": [
+      {"procedure": "watermark", "position": 1},
+      {"procedure": "border", "position": 2, "parameters": {"borderColor": "#60aa74"}}
+    ]
+  }
+}

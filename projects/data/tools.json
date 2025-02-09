@@ -1,0 +1,193 @@
+[
+    {
+        "procedure": "watermark",
+        "display_name": "Watermark",
+        "description": "Add a watermark to an image",
+        "parameters": []
+    },
+    {
+        "procedure": "bg-removal",
+        "display_name": "Background Removal",
+        "description": "Automatically remove the background from an image",
+        "parameters": []
+    },
+    {
+        "procedure": "border",
+        "display_name": "Border",
+        "description": "Add a border to an image",
+        "parameters": [
+            {
+                "name": "borderSize",
+                "display_name": "Border size",
+                "type": "number",
+                "default": 10,
+                "description": "The size of the border in pixels"
+            },
+            {
+                "name": "borderColor",
+                "display_name": "Border color",
+                "type": "color",
+                "default": "#000000",
+                "description": "The color of the border"
+            }
+        ]
+    },
+    {
+        "procedure": "brightness",
+        "display_name": "Brightness",
+        "description": "Adjust the brightness of an image",
+        "parameters": [
+            {
+                "name": "brightnessLevel",
+                "display_name": "Brightness level",
+                "type": "slider",
+                "default": 0.5,
+                "min": 0,
+                "max": 1,
+                "description": "The brightness level to apply to the image"
+            }
+        ]
+    },
+    {
+        "procedure": "contrast",
+        "display_name": "Contrast",
+        "description": "Adjust the contrast of an image",
+        "parameters": [
+            {
+                "name": "contrastLevel",
+                "display_name": "Contrast level",
+                "type": "slider",
+                "default": 0.5,
+                "min": 0,
+                "max": 1,
+                "description": "The contrast level to apply to the image"
+            }
+        ]
+    },
+    {
+        "procedure": "rotate",
+        "display_name": "Rotate",
+        "description": "Rotate an image",
+        "parameters": [
+            {
+                "name": "rotateAngle",
+                "display_name": "Angle",
+                "type": "number",
+                "default": 90,
+                "description": "The angle to rotate the image by"
+            }
+        ]
+    },
+    {
+        "procedure": "resize",
+        "display_name": "Resize",
+        "description": "Resize an image",
+        "parameters": [
+            {
+                "name": "resizeWidth",
+                "display_name": "Width",
+                "type": "number",
+                "default": "imageWidth",
+                "description": "The width to resize the image to"
+            },
+            {
+                "name": "resizeHeight",
+                "display_name": "Height",
+                "type": "number",
+                "default": "imageHeight",
+                "description": "The height to resize the image to"
+            }
+        ]
+    },
+    {
+        "procedure": "crop",
+        "display_name": "Crop",
+        "description": "Crop an image",
+        "parameters": [
+            {
+                "name": "left",
+                "display_name": "Left",
+                "type": "number",
+                "default": 0,
+                "description": "The left coordinate of the crop"
+            },
+            {
+                "name": "top",
+                "display_name": "Top",
+                "type": "number",
+                "default": 0,
+                "description": "The top coordinate of the crop"
+            },
+            {
+                "name": "right",
+                "display_name": "Right",
+                "type": "number",
+                "default": "imageWidth",
+                "description": "The right coordinate of the crop"
+            },
+            {
+                "name": "bottom",
+                "display_name": "Bottom",
+                "type": "number",
+                "default": "imageHeight",
+                "description": "The bottom coordinate of the crop"
+            }
+        ]
+    },
+    {
+        "procedure": "object-detection",
+        "display_name": "Object Detection",
+        "description": "Detect objects in an image",
+        "parameters": []
+    },
+    {
+        "procedure": "blur",
+        "display_name": "Blur",
+        "description": "Blur an image",
+        "parameters": []
+    },
+    {
+        "procedure": "hue",
+        "display_name": "Hue",
+        "description": "Adjust the hue of an image",
+        "parameters": [
+            {
+                "name": "hueLevel",
+                "display_name": "Hue level",
+                "type": "slider",
+                "default": 0.5,
+                "min": 0,
+                "max": 1,
+                "description": "The hue level to apply to the image"
+            }
+        ]
+    },
+    {
+        "procedure": "invert",
+        "display_name": "Invert",
+        "description": "Invert the colors of an image",
+        "parameters": []
+    },
+    {
+        "procedure": "sharpen",
+        "display_name": "Sharpen",
+        "description": "Sharpen an image",
+        "parameters": []
+    },
+    {
+        "procedure": "saturation",
+        "display_name": "Saturation",
+        "description": "Adjust the saturation of an image",
+        "parameters": [
+            {
+                "name": "saturationLevel",
+                "display_name": "Saturation level",
+                "type": "slider",
+                "default": 0.5,
+                "min": 0,
+                "max": 1,
+                "description": "The saturation level to apply to the image"
+            }
+        ]
+    }
+]

@@ -1,0 +1,21 @@
+meta {
+  name: Upload image(s)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/api/v1/users/{{user_id}}/projects/{{project_id}}/upload
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:multipart-form {
+  images[0]: @file(/home/rui/Pictures/cesium.png)
+  images[1]: @file(/home/rui/Pictures/wallpaper.jpg)
+  images[2]: @file(/home/rui/Pictures/Portraits/ruilopes.jpg)
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Revoke User
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{host}}/api/v1/users/{{user_id}}/projects/{{project_id}}/revoke
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "mail3@ricardosilva.com"
+  }
+}

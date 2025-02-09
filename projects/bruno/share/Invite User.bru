@@ -1,0 +1,21 @@
+meta {
+  name: Invite User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/api/v1/users/{{user_id}}/projects/{{project_id}}/invite
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "mail1@ricardosilva.com"
+  }
+}
