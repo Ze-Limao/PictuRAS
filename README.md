@@ -37,12 +37,17 @@ Where you can manage your projects and create new ones.
 
 ### Backend
 
-The deployment can be set by doing the following:
+The set up of all microservices can be set by doing the following:
 
-1. Create a symbolic link:
+1. Create a symbolic link to your docker compose (replace `OS` with your operating system):
    ```
    ln -s deployment/OS/docker-compose.yml docker-compose.yml
    ```
+   Run: 
+   ```
+   docker-compose up -d
+   ```
+
 2. Allow direnv inside users and projects:
 
    ```
